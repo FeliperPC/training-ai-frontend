@@ -24,7 +24,7 @@ export default function AuthPage() {
   const handleGoogleLogin = async () => {
     const { error } = await authClient.signIn.social({
       provider: "google",
-      callbackURL: "/",
+      callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
     });
 
     if (error) {
@@ -54,7 +54,7 @@ export default function AuthPage() {
         />
       </div>
 
-      <div className="relative z-10 mt-auto flex w-full max-w-[402px] flex-col items-center gap-[60px] rounded-t-[20px] bg-primary px-5 pb-10 pt-12">
+      <div className="relative z-10 mt-auto flex w-full flex-col items-center gap-[60px] rounded-t-[20px] bg-primary px-5 pb-10 pt-12">
         <div className="flex w-full flex-col items-center gap-6">
           <h1 className="w-full text-center font-inter-tight text-[32px] font-semibold leading-[1.05] text-primary-foreground">
             O app que vai transformar a forma como você treina.
