@@ -348,7 +348,7 @@ export type GetHome200ConsistencyByDay = {
 
 export type GetHome200 = {
   activeWorkoutPlanId: string;
-  todayWorkoutDay: GetHome200TodayWorkoutDay;
+  todayWorkoutDay?: GetHome200TodayWorkoutDay;
   workoutStreak: number;
   consistencyByDay: GetHome200ConsistencyByDay;
 };
