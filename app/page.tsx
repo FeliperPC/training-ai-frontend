@@ -128,7 +128,7 @@ export default async function Home() {
         )}
       </div>
 
-      <BottomNav />
+      <BottomNav activeTab="home" />
     </div>
   );
 }
