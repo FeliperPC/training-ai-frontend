@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { Calendar, Check, CircleHelp, Dumbbell, Timer } from "lucide-react";
+import { Calendar, Dumbbell, Timer } from "lucide-react";
 import Image from "next/image";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -16,9 +16,10 @@ import { BottomNav } from "@/components/bottom-nav";
 
 import { BackButton } from "./_components/back-button";
 import { CompleteWorkoutButton } from "./_components/complete-workout-button";
+import { ExerciseCard } from "./_components/exercise-card";
 import { StartWorkoutButton } from "./_components/start-workout-button";
 
-const WEEKDAY_LABELS: Record<string, string> = {
+const WEEKDAY_LABELS_UPPER: Record<string, string> = {
   MONDAY: "SEGUNDA",
   TUESDAY: "TERÇA",
   WEDNESDAY: "QUARTA",
@@ -26,6 +27,16 @@ const WEEKDAY_LABELS: Record<string, string> = {
   FRIDAY: "SEXTA",
   SATURDAY: "SÁBADO",
   SUNDAY: "DOMINGO",
+};
+
+const WEEKDAY_LABELS_TITLE: Record<string, string> = {
+  MONDAY: "Segunda",
+  TUESDAY: "Terça",
+  WEDNESDAY: "Quarta",
+  THURSDAY: "Quinta",
+  FRIDAY: "Sexta",
+  SATURDAY: "Sábado",
+  SUNDAY: "Domingo",
 };
 
 interface PageParams {
@@ -60,7 +71,10 @@ export default async function WorkoutDayPage({
   const durationInMinutes = Math.round(
     workoutDay.estimatedDurationInSeconds / 60,
   );
-  const weekDayLabel = WEEKDAY_LABELS[workoutDay.weekDay] ?? workoutDay.weekDay;
+  const weekDayLabelUpper =
+    WEEKDAY_LABELS_UPPER[workoutDay.weekDay] ?? workoutDay.weekDay;
+  const weekDayLabelTitle =
+    WEEKDAY_LABELS_TITLE[workoutDay.weekDay] ?? workoutDay.weekDay;
   const sortedExercises = [...workoutDay.exercises].sort(
     (a, b) => a.order - b.order,
   );
@@ -100,15 +114,16 @@ export default async function WorkoutDayPage({
 
   return (
     <div className="flex min-h-dvh flex-col bg-background pb-24">
-      <div className="flex items-center gap-3 px-5 pt-5">
+      <div className="flex items-center justify-between px-5 pt-5">
         <BackButton />
         <h1 className="font-inter-tight text-lg font-semibold leading-[1.4] text-foreground">
-          Treino de Hoje
+          {weekDayLabelTitle}
         </h1>
+        <div className="size-9" />
       </div>
 
-      <div className="px-5 pt-4">
-        <div className="relative flex w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5">
+      <div className="flex flex-col gap-5 p-5">
+        <div className="relative flex h-[200px] w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5">
           {workoutDay.coverImageUrl ? (
             <Image
               src={workoutDay.coverImageUrl}
@@ -120,24 +135,23 @@ export default async function WorkoutDayPage({
           ) : (
             <div className="absolute inset-0 bg-foreground" />
           )}
-
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent" />
 
           <div className="relative flex items-center justify-center">
             <div className="flex items-center gap-1 rounded-full bg-background/16 px-2.5 py-[5px] backdrop-blur-[4px]">
               <Calendar className="size-3.5 text-background" />
               <span className="font-inter-tight text-xs font-semibold uppercase leading-none text-background">
-                {weekDayLabel}
+                {weekDayLabelUpper}
               </span>
             </div>
           </div>
 
-          <div className="relative mt-16 flex w-full flex-col gap-3">
+          <div className="relative flex w-full items-end justify-between">
             <div className="flex flex-col gap-2">
               <h3 className="font-inter-tight text-2xl font-semibold leading-[1.05] text-background">
                 {workoutDay.name}
               </h3>
-              <div className="flex items-start gap-2">
+              <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1">
                   <Timer className="size-3.5 text-background/70" />
                   <span className="font-inter-tight text-xs leading-[1.4] text-background/70">
@@ -156,64 +170,27 @@ export default async function WorkoutDayPage({
             {sessionStatus === "not-started" && (
               <StartWorkoutButton startAction={handleStartWorkout} />
             )}
-
             {sessionStatus === "completed" && (
-              <div className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-background/16 backdrop-blur-[4px]">
-                <Check className="size-4 text-background" />
-                <span className="font-inter-tight text-sm font-semibold text-background">
-                  Concluído!
-                </span>
-              </div>
+              <Button
+                variant="ghost"
+                className="shrink-0 rounded-full border border-background/50 px-4 py-2 font-inter-tight text-sm font-semibold text-background hover:bg-background/10 hover:text-background"
+              >
+                Concluído!
+              </Button>
             )}
           </div>
         </div>
-      </div>
-
-      <div className="flex flex-col gap-3 p-5">
-        <h2 className="font-inter-tight text-lg font-semibold leading-[1.4] text-foreground">
-          Exercícios
-        </h2>
 
         <div className="flex flex-col gap-3">
           {sortedExercises.map((exercise) => (
-            <div
-              key={exercise.id}
-              className="flex items-center justify-between rounded-xl border border-border p-4"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex size-9 items-center justify-center rounded-lg bg-primary/10">
-                  <span className="font-inter-tight text-sm font-semibold text-primary">
-                    {exercise.order + 1}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  <span className="font-inter-tight text-sm font-semibold leading-[1.4] text-foreground">
-                    {exercise.name}
-                  </span>
-                  <span className="font-inter-tight text-xs leading-[1.4] text-muted-foreground">
-                    {exercise.sets} séries · {exercise.reps} reps ·{" "}
-                    {exercise.restTimeInSeconds}s descanso
-                  </span>
-                </div>
-              </div>
-
-              <Button
-                variant="ghost"
-                size="icon-xs"
-                className="text-muted-foreground"
-              >
-                <CircleHelp className="size-4" />
-              </Button>
-            </div>
+            <ExerciseCard key={exercise.id} exercise={exercise} />
           ))}
         </div>
-      </div>
 
-      {sessionStatus === "in-progress" && (
-        <div className="px-5 pb-5">
+        {sessionStatus === "in-progress" && (
           <CompleteWorkoutButton completeAction={handleCompleteWorkout} />
-        </div>
-      )}
+        )}
+      </div>
 
       <BottomNav activeTab="calendar" />
     </div>

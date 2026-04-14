@@ -70,12 +70,30 @@ export async function BottomNav({ activeTab = "home" }: BottomNavProps) {
         <Sparkles className="size-6" />
       </Button>
 
-      <Button variant="ghost" size="icon-lg" className="text-muted-foreground">
-        <ChartNoAxesColumn className="size-6" />
+      <Button
+        variant="ghost"
+        size="icon-lg"
+        className={cn(
+          activeTab === "stats" ? "text-foreground" : "text-muted-foreground",
+        )}
+        asChild
+      >
+        <Link href="/stats">
+          <ChartNoAxesColumn className="size-6" />
+        </Link>
       </Button>
 
-      <Button variant="ghost" size="icon-lg" className="text-muted-foreground">
-        <UserRound className="size-6" />
+      <Button
+        variant="ghost"
+        size="icon-lg"
+        className={cn(
+          activeTab === "profile" ? "text-foreground" : "text-muted-foreground",
+        )}
+        asChild
+      >
+        <Link href="/profile">
+          <UserRound className="size-6" />
+        </Link>
       </Button>
     </nav>
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import { Check } from "lucide-react";
 import { useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -22,11 +21,11 @@ export function CompleteWorkoutButton({
 
   return (
     <Button
-      className="h-14 w-full gap-2 font-inter-tight text-base font-semibold"
+      variant="outline"
+      className="h-12 w-full rounded-full font-inter-tight text-sm font-semibold"
       onClick={handleComplete}
       disabled={isPending}
     >
-      <Check className="size-5" />
       {isPending ? "Concluindo..." : "Marcar como concluído"}
     </Button>
   );
