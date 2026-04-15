@@ -1,7 +1,7 @@
-import { CircleHelp, Zap } from "lucide-react";
+import { Zap } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import type { GetWorkoutDay200ExercisesItem } from "@/app/_lib/api/fetch-generated";
+import { ExerciseHelpButton } from "./exercise-help-button";
 
 interface ExerciseCardProps {
   exercise: GetWorkoutDay200ExercisesItem;
@@ -14,13 +14,7 @@ export const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
         <span className="font-inter-tight text-base font-semibold leading-[1.4] text-foreground">
           {exercise.name}
         </span>
-        <Button
-          variant="ghost"
-          size="icon-xs"
-          className="text-muted-foreground"
-        >
-          <CircleHelp className="size-5" />
-        </Button>
+        <ExerciseHelpButton exerciseName={exercise.name} />
       </div>
       <div className="flex items-center gap-1.5">
         <span className="rounded-full bg-muted px-2.5 py-[5px] font-inter-tight text-xs font-semibold uppercase leading-none text-muted-foreground">

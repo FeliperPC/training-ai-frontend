@@ -3,7 +3,6 @@ import {
   Calendar,
   ChartNoAxesColumn,
   House,
-  Sparkles,
   UserRound,
 } from "lucide-react";
 import Link from "next/link";
@@ -11,6 +10,7 @@ import Link from "next/link";
 import { getHome } from "@/app/_lib/api/fetch-generated";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { OpenChatButton } from "@/components/open-chat-button";
 
 interface BottomNavProps {
   activeTab?: "home" | "calendar" | "ai" | "stats" | "profile";
@@ -63,12 +63,7 @@ export async function BottomNav({ activeTab = "home" }: BottomNavProps) {
         </Button>
       )}
 
-      <Button
-        size="icon-lg"
-        className="size-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
-      >
-        <Sparkles className="size-6" />
-      </Button>
+      <OpenChatButton />
 
       <Button
         variant="ghost"
