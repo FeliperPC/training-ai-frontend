@@ -347,18 +347,13 @@ export type GetHome200ConsistencyByDay = {
 };
 
 export type GetHome200 = {
-  activeWorkoutPlanId: string;
+  activeWorkoutPlanId?: string;
   todayWorkoutDay?: GetHome200TodayWorkoutDay;
   workoutStreak: number;
   consistencyByDay: GetHome200ConsistencyByDay;
 };
 
 export type GetHome401 = {
-  error: string;
-  code: string;
-};
-
-export type GetHome404 = {
   error: string;
   code: string;
 };
@@ -843,11 +838,6 @@ export type getHomeResponse401 = {
   status: 401;
 };
 
-export type getHomeResponse404 = {
-  data: GetHome404;
-  status: 404;
-};
-
 export type getHomeResponse500 = {
   data: GetHome500;
   status: 500;
@@ -856,11 +846,7 @@ export type getHomeResponse500 = {
 export type getHomeResponseSuccess = getHomeResponse200 & {
   headers: Headers;
 };
-export type getHomeResponseError = (
-  | getHomeResponse401
-  | getHomeResponse404
-  | getHomeResponse500
-) & {
+export type getHomeResponseError = (getHomeResponse401 | getHomeResponse500) & {
   headers: Headers;
 };
 
