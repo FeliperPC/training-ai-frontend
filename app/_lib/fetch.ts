@@ -5,7 +5,7 @@ const getBody = <T>(c: Response | Request): Promise<T> => {
 };
 
 const getUrl = (contextUrl: string): string => {
-  const newUrl = new URL(`${process.env.NEXT_PUBLIC_API_URL}${contextUrl}`);
+  const newUrl = new URL(`${(process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "")}${contextUrl}`);
   const requestUrl = new URL(`${newUrl}`);
   return requestUrl.toString();
 };
