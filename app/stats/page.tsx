@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { CircleCheck, CirclePercent, Flame, Hourglass } from "lucide-react";
 
 import { authClient } from "@/app/_lib/auth-client";
-import { getStats } from "@/app/_lib/api/fetch-generated";
+import { getHome, getMe, getStats } from "@/app/_lib/api/fetch-generated";
 import { BottomNav } from "@/components/bottom-nav";
 import { ConsistencyHeatmap } from "@/app/stats/_components/consistency-heatmap";
 
@@ -23,10 +23,22 @@ export default async function StatsPage() {
   const from = today.subtract(2, "month").startOf("month").format("YYYY-MM-DD");
   const to = today.endOf("month").format("YYYY-MM-DD");
 
-  const statsData = await getStats({ from, to });
+  const [statsData, homeData, meData] = await Promise.all([
+    getStats({ from, to }),
+    getHome(today.format("YYYY-MM-DD")),
+    getMe(),
+  ]);
 
   if (statsData.status !== 200) {
     redirect("/auth");
+  }
+
+  if (homeData.status !== 200 || meData.status !== 200) {
+    redirect("/auth");
+  }
+
+  if (!homeData.data.activeWorkoutPlanId || meData.data === null) {
+    redirect("/onboarding");
   }
 
   const {

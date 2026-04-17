@@ -2,9 +2,10 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import Image from "next/image";
 import { BicepsFlexed, Ruler, User, Weight } from "lucide-react";
+import dayjs from "dayjs";
 
 import { authClient } from "@/app/_lib/auth-client";
-import { getMe } from "@/app/_lib/api/fetch-generated";
+import { getHome, getMe } from "@/app/_lib/api/fetch-generated";
 import { BottomNav } from "@/components/bottom-nav";
 import { LogoutButton } from "@/app/profile/_components/logout-button";
 
@@ -19,10 +20,19 @@ export default async function ProfilePage() {
     redirect("/auth");
   }
 
-  const meData = await getMe();
+  const today = dayjs().format("YYYY-MM-DD");
+  const [homeData, meData] = await Promise.all([getHome(today), getMe()]);
+
+  if (homeData.status !== 200 || meData.status !== 200) {
+    redirect("/auth");
+  }
+
+  if (!homeData.data.activeWorkoutPlanId || meData.data === null) {
+    redirect("/onboarding");
+  }
 
   const user = session.data.user;
-  const me = meData.status === 200 ? meData.data : null;
+  const me = meData.data;
 
   const weightKg = me?.weightInGrams ? (me.weightInGrams / 1000).toFixed(1) : "-";
   const heightCm = me?.heightInCentimeters ?? "-";

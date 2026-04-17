@@ -4,8 +4,10 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import dayjs from "dayjs";
+
 import { authClient } from "@/app/_lib/auth-client";
-import { getWorkoutPlan } from "@/app/_lib/api/fetch-generated";
+import { getHome, getMe, getWorkoutPlan } from "@/app/_lib/api/fetch-generated";
 import { BottomNav } from "@/components/bottom-nav";
 
 const WEEKDAY_LABELS: Record<string, string> = {
@@ -49,10 +51,23 @@ export default async function WorkoutPlanPage({
     redirect("/auth");
   }
 
-  const response = await getWorkoutPlan(workoutPlanId);
+  const today = dayjs().format("YYYY-MM-DD");
+  const [response, homeData, meData] = await Promise.all([
+    getWorkoutPlan(workoutPlanId),
+    getHome(today),
+    getMe(),
+  ]);
 
   if (response.status !== 200) {
     redirect("/");
+  }
+
+  if (homeData.status !== 200 || meData.status !== 200) {
+    redirect("/auth");
+  }
+
+  if (!homeData.data.activeWorkoutPlanId || meData.data === null) {
+    redirect("/onboarding");
   }
 
   const workoutPlan = response.data;

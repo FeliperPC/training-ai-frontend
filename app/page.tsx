@@ -5,7 +5,7 @@ import Link from "next/link";
 import dayjs from "dayjs";
 
 import { authClient } from "@/app/_lib/auth-client";
-import { getHome } from "@/app/_lib/api/fetch-generated";
+import { getHome, getMe } from "@/app/_lib/api/fetch-generated";
 import { Button } from "@/components/ui/button";
 import { BottomNav } from "@/components/bottom-nav";
 import { WeeklyConsistency } from "@/components/weekly-consistency";
@@ -23,10 +23,18 @@ export default async function Home() {
   }
 
   const today = dayjs().format("YYYY-MM-DD");
-  const homeData = await getHome(today);
+  const [homeData, meData] = await Promise.all([getHome(today), getMe()]);
 
   if (homeData.status !== 200) {
     redirect("/auth");
+  }
+
+  if (meData.status !== 200) {
+    redirect("/auth");
+  }
+
+  if (!homeData.data.activeWorkoutPlanId || meData.data === null) {
+    redirect("/onboarding");
   }
 
   const { todayWorkoutDay, consistencyByDay, workoutStreak } = homeData.data;

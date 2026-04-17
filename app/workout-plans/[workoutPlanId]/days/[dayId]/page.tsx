@@ -8,6 +8,8 @@ import { revalidatePath } from "next/cache";
 import { authClient } from "@/app/_lib/auth-client";
 import {
   completeWorkoutSession,
+  getHome,
+  getMe,
   getWorkoutDay,
   startWorkoutSession,
 } from "@/app/_lib/api/fetch-generated";
@@ -61,10 +63,23 @@ export default async function WorkoutDayPage({
     redirect("/auth");
   }
 
-  const response = await getWorkoutDay(workoutPlanId, dayId);
+  const today = dayjs().format("YYYY-MM-DD");
+  const [response, homeData, meData] = await Promise.all([
+    getWorkoutDay(workoutPlanId, dayId),
+    getHome(today),
+    getMe(),
+  ]);
 
   if (response.status !== 200) {
     redirect("/");
+  }
+
+  if (homeData.status !== 200 || meData.status !== 200) {
+    redirect("/auth");
+  }
+
+  if (!homeData.data.activeWorkoutPlanId || meData.data === null) {
+    redirect("/onboarding");
   }
 
   const workoutDay = response.data;
