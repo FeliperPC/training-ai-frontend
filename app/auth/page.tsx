@@ -54,15 +54,15 @@ export default function AuthPage() {
         />
       </div>
 
-      <div className="relative z-10 mt-auto flex w-full flex-col items-center gap-[60px] rounded-t-[20px] bg-primary px-5 pb-10 pt-12">
-        <div className="flex w-full flex-col items-center gap-6">
-          <h1 className="w-full text-center font-inter-tight text-[32px] font-semibold leading-[1.05] text-primary-foreground">
+      <div className="relative z-10 mt-auto flex w-full flex-col items-center gap-[60px] rounded-t-[20px] bg-primary px-5 pb-10 pt-12 md:pb-14 md:pt-16">
+        <div className="flex w-full max-w-2xl flex-col items-center gap-6 md:gap-8">
+          <h1 className="w-full text-center font-inter-tight text-[32px] font-semibold leading-[1.05] text-primary-foreground md:text-[44px] lg:text-[52px]">
             O app que vai transformar a forma como você treina.
           </h1>
 
           <Button
             variant="ghost"
-            className="h-[38px] gap-2 rounded-full bg-background px-6 text-sm font-semibold text-foreground hover:bg-background/90 hover:text-foreground"
+            className="h-[38px] gap-2 rounded-full bg-background px-6 text-sm font-semibold text-foreground hover:bg-background/90 hover:text-foreground md:h-[46px] md:px-8 md:text-base"
             onClick={handleGoogleLogin}
           >
             <Image

@@ -54,15 +54,15 @@ export default async function StatsPage() {
   const formattedTime = `${totalHours}h${totalMinutes.toString().padStart(2, "0")}m`;
 
   return (
-    <div className="flex min-h-dvh flex-col bg-background pb-24">
-      <div className="flex h-14 items-center px-5">
+    <div className="flex min-h-dvh flex-col bg-background pb-24 md:pb-32">
+      <div className="mx-auto flex h-14 w-full max-w-3xl items-center px-5 md:px-8 lg:max-w-4xl">
         <p className="font-anton text-[22px] uppercase leading-[1.15] text-foreground">
           Fit.ai
         </p>
       </div>
 
-      <div className="px-5">
-        <div className="relative flex flex-col items-center justify-center gap-6 overflow-hidden rounded-xl px-5 py-10">
+      <div className="mx-auto w-full max-w-3xl px-5 md:px-8 lg:max-w-4xl">
+        <div className="relative flex flex-col items-center justify-center gap-6 overflow-hidden rounded-xl px-5 py-10 md:py-16">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={
@@ -89,15 +89,15 @@ export default async function StatsPage() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 p-5">
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 p-5 md:px-8 lg:max-w-4xl">
         <h2 className="font-inter-tight text-lg font-semibold leading-[1.4] text-foreground">
           Consistência
         </h2>
 
         <ConsistencyHeatmap consistencyByDay={consistencyByDay} />
 
-        <div className="flex gap-3">
-          <div className="flex flex-1 flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
             <div className="rounded-full bg-primary/8 p-[9px]">
               <CircleCheck className="size-4 text-primary" />
             </div>
@@ -111,7 +111,7 @@ export default async function StatsPage() {
             </div>
           </div>
 
-          <div className="flex flex-1 flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
+          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
             <div className="rounded-full bg-primary/8 p-[9px]">
               <CirclePercent className="size-4 text-primary" />
             </div>
@@ -124,19 +124,19 @@ export default async function StatsPage() {
               </p>
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
-          <div className="rounded-full bg-primary/8 p-[9px]">
-            <Hourglass className="size-4 text-primary" />
-          </div>
-          <div className="flex flex-col items-center gap-1.5">
-            <p className="font-inter-tight text-2xl font-semibold leading-[1.15] text-foreground">
-              {formattedTime}
-            </p>
-            <p className="font-inter-tight text-xs leading-[1.4] text-muted-foreground">
-              Tempo Total
-            </p>
+          <div className="col-span-2 flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5 md:col-span-1">
+            <div className="rounded-full bg-primary/8 p-[9px]">
+              <Hourglass className="size-4 text-primary" />
+            </div>
+            <div className="flex flex-col items-center gap-1.5">
+              <p className="font-inter-tight text-2xl font-semibold leading-[1.15] text-foreground">
+                {formattedTime}
+              </p>
+              <p className="font-inter-tight text-xs leading-[1.4] text-muted-foreground">
+                Tempo Total
+              </p>
+            </div>
           </div>
         </div>
       </div>

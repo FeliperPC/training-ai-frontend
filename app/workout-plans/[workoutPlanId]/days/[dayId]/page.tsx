@@ -128,8 +128,8 @@ export default async function WorkoutDayPage({
   };
 
   return (
-    <div className="flex min-h-dvh flex-col bg-background pb-24">
-      <div className="flex items-center justify-between px-5 pt-5">
+    <div className="flex min-h-dvh flex-col bg-background pb-24 md:pb-32">
+      <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-5 pt-5 md:px-8 lg:max-w-5xl">
         <BackButton />
         <h1 className="font-inter-tight text-lg font-semibold leading-[1.4] text-foreground">
           {weekDayLabelTitle}
@@ -137,8 +137,8 @@ export default async function WorkoutDayPage({
         <div className="size-9" />
       </div>
 
-      <div className="flex flex-col gap-5 p-5">
-        <div className="relative flex h-[200px] w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5">
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-5 p-5 md:px-8 lg:max-w-5xl">
+        <div className="relative flex h-[200px] w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5 md:h-[260px] md:p-7 lg:h-[300px]">
           {workoutDay.coverImageUrl ? (
             <Image
               src={workoutDay.coverImageUrl}
@@ -196,14 +196,16 @@ export default async function WorkoutDayPage({
           </div>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {sortedExercises.map((exercise) => (
             <ExerciseCard key={exercise.id} exercise={exercise} />
           ))}
         </div>
 
         {sessionStatus === "in-progress" && (
-          <CompleteWorkoutButton completeAction={handleCompleteWorkout} />
+          <div className="md:mx-auto md:w-full md:max-w-md">
+            <CompleteWorkoutButton completeAction={handleCompleteWorkout} />
+          </div>
         )}
       </div>
 

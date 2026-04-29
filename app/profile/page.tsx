@@ -40,14 +40,14 @@ export default async function ProfilePage() {
   const age = me?.age ?? "-";
 
   return (
-    <div className="flex min-h-dvh flex-col bg-background pb-24">
-      <div className="flex h-14 items-center px-5">
+    <div className="flex min-h-dvh flex-col bg-background pb-24 md:pb-32">
+      <div className="mx-auto flex h-14 w-full max-w-3xl items-center px-5 md:px-8 lg:max-w-4xl">
         <p className="font-anton text-[22px] uppercase leading-[1.15] text-foreground">
           Fit.ai
         </p>
       </div>
 
-      <div className="flex flex-col items-center gap-5 p-5">
+      <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-5 p-5 md:px-8 lg:max-w-4xl">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-3">
             {user.image ? (
@@ -56,15 +56,15 @@ export default async function ProfilePage() {
                 alt={user.name ?? ""}
                 width={52}
                 height={52}
-                className="size-[52px] rounded-full object-cover"
+                className="size-[52px] rounded-full object-cover md:size-16"
               />
             ) : (
-              <div className="flex size-[52px] items-center justify-center rounded-full bg-primary/8">
+              <div className="flex size-[52px] items-center justify-center rounded-full bg-primary/8 md:size-16">
                 <User className="size-6 text-primary" />
               </div>
             )}
             <div className="flex flex-col gap-1.5">
-              <p className="font-inter-tight text-lg font-semibold leading-[1.05] text-foreground">
+              <p className="font-inter-tight text-lg font-semibold leading-[1.05] text-foreground md:text-xl">
                 {user.name}
               </p>
               <p className="font-inter-tight text-sm leading-[1.15] text-foreground/70">
@@ -74,7 +74,7 @@ export default async function ProfilePage() {
           </div>
         </div>
 
-        <div className="grid w-full grid-cols-2 gap-3">
+        <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-4">
           <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
             <div className="rounded-full bg-primary/8 p-[9px]">
               <Weight className="size-4 text-primary" />

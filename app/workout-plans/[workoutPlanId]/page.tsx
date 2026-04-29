@@ -77,51 +77,52 @@ export default async function WorkoutPlanPage({
   );
 
   return (
-    <div className="flex min-h-dvh flex-col bg-background pb-24">
-      <div className="relative flex h-[296px] shrink-0 flex-col items-start justify-between overflow-hidden rounded-b-[20px] px-5 pb-10 pt-5">
-        <div className="absolute inset-0">
+    <div className="flex min-h-dvh flex-col bg-background pb-24 md:pb-32">
+      <div className="mx-auto flex w-full max-w-3xl flex-col lg:max-w-5xl">
+        <div className="relative flex h-[296px] shrink-0 flex-col items-start justify-between overflow-hidden rounded-b-[20px] px-5 pb-10 pt-5 md:mt-5 md:h-[340px] md:rounded-[20px] md:px-8">
+          <div className="absolute inset-0">
+            <Image
+              src="/home-banner.jpg"
+              alt=""
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div
+            className="absolute inset-0 rounded-b-[20px] md:rounded-[20px]"
+            style={{
+              backgroundImage:
+                "linear-gradient(238deg, transparent 0%, rgba(0,0,0,0.8) 100%)",
+            }}
+          />
+
           <Image
-            src="/home-banner.jpg"
-            alt=""
-            fill
-            className="object-cover"
+            src="/fit-ai-logo.svg"
+            alt="FIT.AI"
+            width={85}
+            height={38}
+            className="relative"
             priority
           />
-        </div>
-        <div
-          className="absolute inset-0 rounded-b-[20px]"
-          style={{
-            backgroundImage:
-              "linear-gradient(238deg, transparent 0%, rgba(0,0,0,0.8) 100%)",
-          }}
-        />
 
-        <Image
-          src="/fit-ai-logo.svg"
-          alt="FIT.AI"
-          width={85}
-          height={38}
-          className="relative"
-          priority
-        />
-
-        <div className="relative flex w-full items-end justify-between">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-1 rounded-full bg-primary px-2.5 py-[5px]">
-              <Goal className="size-4 text-background" />
-              <span className="font-inter-tight text-xs font-semibold uppercase leading-none text-background">
-                {workoutPlan.name}
-              </span>
+          <div className="relative flex w-full items-end justify-between">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-1 rounded-full bg-primary px-2.5 py-[5px]">
+                <Goal className="size-4 text-background" />
+                <span className="font-inter-tight text-xs font-semibold uppercase leading-none text-background">
+                  {workoutPlan.name}
+                </span>
+              </div>
+              <h1 className="font-inter-tight text-2xl font-semibold leading-[1.05] text-background md:text-3xl lg:text-4xl">
+                Plano de Treino
+              </h1>
             </div>
-            <h1 className="font-inter-tight text-2xl font-semibold leading-[1.05] text-background">
-              Plano de Treino
-            </h1>
+            <div className="size-12 shrink-0" />
           </div>
-          <div className="size-12 shrink-0" />
         </div>
-      </div>
 
-      <div className="flex flex-col gap-3 p-5">
+        <div className="grid grid-cols-1 gap-3 p-5 md:px-8 md:grid-cols-2 lg:grid-cols-3">
         {sortedDays.map((day) => {
           const weekDayLabel = WEEKDAY_LABELS[day.weekDay] ?? day.weekDay;
 
@@ -129,7 +130,7 @@ export default async function WorkoutPlanPage({
             return (
               <div
                 key={day.id}
-                className="flex h-[110px] w-full flex-col items-start justify-between overflow-hidden rounded-xl bg-muted p-5"
+                className="flex h-[110px] w-full flex-col items-start justify-between overflow-hidden rounded-xl bg-muted p-5 md:h-full md:min-h-[200px]"
               >
                 <div className="flex items-center gap-1 rounded-full bg-black/8 px-2.5 py-[5px]">
                   <Calendar className="size-3.5 text-foreground" />
@@ -156,7 +157,7 @@ export default async function WorkoutPlanPage({
               key={day.id}
               href={`/workout-plans/${workoutPlanId}/days/${day.id}`}
             >
-              <div className="relative flex h-[200px] w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5">
+              <div className="relative flex h-[200px] w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5 md:h-full md:min-h-[200px]">
                 {day.coverImageUrl ? (
                   <Image
                     src={day.coverImageUrl}
@@ -201,6 +202,7 @@ export default async function WorkoutPlanPage({
             </Link>
           );
         })}
+        </div>
       </div>
 
       <BottomNav activeTab="calendar" />

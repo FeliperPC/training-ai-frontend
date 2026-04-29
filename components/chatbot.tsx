@@ -111,8 +111,8 @@ export const Chatbot = ({
       className={cn(
         "flex flex-col bg-background",
         mode === "page"
-          ? "h-dvh"
-          : "relative min-h-0 w-full max-w-[393px] flex-1 overflow-hidden rounded-[20px]"
+          ? "mx-auto h-dvh w-full max-w-3xl border-x border-border"
+          : "relative min-h-0 w-full max-w-[393px] flex-1 overflow-hidden rounded-[20px] md:max-w-[520px]"
       )}
     >
       <div className="flex shrink-0 items-center justify-between border-b border-border p-5">

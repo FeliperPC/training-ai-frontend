@@ -24,7 +24,7 @@ export function WorkoutDayCard({ workoutDay }: WorkoutDayCardProps) {
   const weekDayLabel = WEEKDAY_LABELS[workoutDay.weekDay] ?? workoutDay.weekDay;
 
   return (
-    <div className="relative flex h-[200px] w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5">
+    <div className="relative flex h-[200px] w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5 md:h-[240px] md:p-6 lg:h-[280px] lg:p-7">
       {workoutDay.coverImageUrl ? (
         <Image
           src={workoutDay.coverImageUrl}
@@ -48,7 +48,7 @@ export function WorkoutDayCard({ workoutDay }: WorkoutDayCardProps) {
       </div>
 
       <div className="relative flex flex-col gap-2 items-start">
-        <h3 className="font-inter-tight text-2xl font-semibold leading-[1.05] text-background">
+        <h3 className="font-inter-tight text-2xl font-semibold leading-[1.05] text-background md:text-3xl lg:text-4xl">
           {workoutDay.name}
         </h3>
         <div className="flex items-start gap-2">

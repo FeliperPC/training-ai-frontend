@@ -24,7 +24,7 @@ export async function BottomNav({ activeTab = "home" }: BottomNavProps) {
     homeData.status === 200 && homeData.data.activeWorkoutPlanId ? `/workout-plans/${homeData.data.activeWorkoutPlanId}` : null;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center gap-6 rounded-t-[20px] border border-border bg-background px-6 py-4">
+    <nav className="fixed bottom-0 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 items-center justify-center gap-6 rounded-t-[20px] border border-border bg-background px-6 py-4 md:bottom-4 md:rounded-[28px] md:shadow-lg">
       <Button
         variant="ghost"
         size="icon-lg"
